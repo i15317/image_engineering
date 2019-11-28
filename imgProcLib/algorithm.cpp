@@ -1,5 +1,7 @@
-#include"stdafx.h"
+#include"pch.h"
+#include"Constant.h"
 #include"algorithm.hpp"
+#define _CRT_SECURE_NO_WARNINGS
 
 inline long double caculateAveragePixels(std::vector<std::vector<unsigned char>>data) {
 	long double result = 0.0f;

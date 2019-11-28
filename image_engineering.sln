@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29519.87
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sample", "sample\sample.vcxproj", "{8A16D7A4-A607-4952-A8B8-62AD4519E060}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "image_engineering", "sample\sample.vcxproj", "{8A16D7A4-A607-4952-A8B8-62AD4519E060}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "imgProcLib", "imgProcLib\imgProcLib.vcxproj", "{74034270-7104-4935-8ABF-856FE74DFD8D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,8 +23,19 @@ Global
 		{8A16D7A4-A607-4952-A8B8-62AD4519E060}.Release|x64.Build.0 = Release|x64
 		{8A16D7A4-A607-4952-A8B8-62AD4519E060}.Release|x86.ActiveCfg = Release|Win32
 		{8A16D7A4-A607-4952-A8B8-62AD4519E060}.Release|x86.Build.0 = Release|Win32
+		{74034270-7104-4935-8ABF-856FE74DFD8D}.Debug|x64.ActiveCfg = Debug|x64
+		{74034270-7104-4935-8ABF-856FE74DFD8D}.Debug|x64.Build.0 = Debug|x64
+		{74034270-7104-4935-8ABF-856FE74DFD8D}.Debug|x86.ActiveCfg = Debug|Win32
+		{74034270-7104-4935-8ABF-856FE74DFD8D}.Debug|x86.Build.0 = Debug|Win32
+		{74034270-7104-4935-8ABF-856FE74DFD8D}.Release|x64.ActiveCfg = Release|x64
+		{74034270-7104-4935-8ABF-856FE74DFD8D}.Release|x64.Build.0 = Release|x64
+		{74034270-7104-4935-8ABF-856FE74DFD8D}.Release|x86.ActiveCfg = Release|Win32
+		{74034270-7104-4935-8ABF-856FE74DFD8D}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5CF7316A-D591-4553-A9DD-9C46470838A2}
 	EndGlobalSection
 EndGlobal

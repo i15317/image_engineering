@@ -1,13 +1,15 @@
-#include"stdafx.h"
+#include"pch.h"
+#include"Constant.h"
 #include"Image.h"
 
-void Image::load_image_data()
+
+using namespace ImgProcLib;
+void Image::load_image_data(std::string file_name)
 /* pgm 画像，横画素数，縦画素数のデータをファイルから読み込み，*/
 /* image1[ ][ ]，__x_size1，__y_size1 にそれぞれ代入する．         */
 {
-	char file_name[MAX_FILENAME] = "lecture1/girl.pgm"; /* ファイル名用の文字配列 */
 	char buffer[MAX_BUFFERSIZE];  /* データ読み込み用作業変数 */
-	FILE *fp; /* ファイルポインタ */
+	FILE* fp; /* ファイルポインタ */
 	int max_gray; /* 最大階調値 */
 	int x, y; /* ループ変数 */
 
@@ -18,7 +20,7 @@ void Image::load_image_data()
 	printf("ファイル形式は pgm, バイナリ形式とします．\n");
 	printf("入力ファイル名 (lecture1/girl.pgm) : ");
 	//scanf("%s", file_name);
-	fp = fopen(file_name, "rb");
+	fp = fopen(file_name.c_str(), "rb");
 	if (NULL == fp) {
 		printf("その名前のファイルは存在しません．\n");
 		exit(1);
@@ -85,7 +87,7 @@ void Image::alloc_vector() {
 		image.shrink_to_fit();
 		//軸方向の領域確保
 		image.resize(y_size);
-		for (auto &y : image) {
+		for (auto& y : image) {
 			//x軸方向の領域確保
 			y.resize(x_size);
 		}

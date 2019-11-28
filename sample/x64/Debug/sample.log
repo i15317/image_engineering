@@ -1,3 +1,2 @@
-﻿  main.cpp
-  sample.vcxproj -> H:\画像工学プログラム\x64\Debug\sample.exe
-  sample.vcxproj -> H:\画像工学プログラム\x64\Debug\sample.pdb (Full PDB)
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(452,5): warning MSB8028: The intermediate directory (x64\Debug\) contains files shared from another project (sample.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  sample.vcxproj -> G:\Users\notch_man\Documents\image_engineering\x64\Debug\image_engineering.exe

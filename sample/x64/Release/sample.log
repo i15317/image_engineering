@@ -1,1 +1,8 @@
-﻿
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(452,5): warning MSB8028: The intermediate directory (x64\Release\) contains files shared from another project (sample.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  stdafx.cpp
+  main.cpp
+  コード生成しています。
+  Previous IPDB not found, fall back to full compilation.
+  All 1 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  コード生成が終了しました。
+  sample.vcxproj -> G:\Users\notch_man\Documents\image_engineering\x64\Release\image_engineering.exe

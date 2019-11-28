@@ -18,7 +18,6 @@ constexpr char br = '\n';
 #include <stdio.h>
 #include <tchar.h>
 #include<cstdlib>
-#include"observe.hpp"
 #include<cmath>
 
 // TODO: プログラムに必要な追加ヘッダーをここで参照してください
