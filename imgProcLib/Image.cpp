@@ -32,17 +32,17 @@ void Image::load_image_data(std::string file_name)
 		exit(1);
 	}
 	/* __x_size1, __y_size1 の代入（#から始まるコメントは読み飛ばす） */
-	x_size = 0;
-	y_size = 0;
-	while (x_size == 0 || y_size == 0) {
+	m_imageWidth = 0;
+	m_imageHeight = 0;
+	while (m_imageWidth == 0 || m_imageHeight== 0) {
 		fgets(buffer, MAX_BUFFERSIZE, fp);
 		if (buffer[0] != '#') {
-			sscanf(buffer, "%d %d", &x_size, &y_size);
+			sscanf(buffer, "%d %d", &m_imageWidth, &m_imageHeight);
 		}
 	}
 
 	//配列領域の確保
-	alloc_vector();
+	alloc_vector(m_imageWidth,m_imageHeight);
 
 	/* max_gray の代入（#から始まるコメントは読み飛ばす） */
 	max_gray = 0;
@@ -53,9 +53,9 @@ void Image::load_image_data(std::string file_name)
 		}
 	}
 	/* パラメータの画面への表示 */
-	printf("横の画素数 = %d, 縦の画素数 = %d\n", x_size, y_size);
+	printf("横の画素数 = %d, 縦の画素数 = %d\n", m_imageWidth, m_imageHeight);
 	printf("最大階調値 = %d\n", max_gray);
-	if (x_size > MAX_IMAGESIZE || y_size > MAX_IMAGESIZE) {
+	if (m_imageWidth > MAX_IMAGESIZE || m_imageHeight > MAX_IMAGESIZE) {
 		printf("想定値 %d x %d を超えています．\n",
 			MAX_IMAGESIZE, MAX_IMAGESIZE);
 		printf("もう少し小さな画像を使って下さい．\n");
@@ -66,8 +66,8 @@ void Image::load_image_data(std::string file_name)
 		exit(1);
 	}
 	/* 画像データを読み込んで画像用配列に代入する */
-	for (y = 0; y < y_size; y++) {
-		for (x = 0; x < x_size; x++) {
+	for (y = 0; y < m_imageHeight; y++) {
+		for (x = 0; x <m_imageWidth; x++) {
 			image[y][x] = (unsigned char)fgetc(fp);
 		}
 	}
@@ -76,10 +76,10 @@ void Image::load_image_data(std::string file_name)
 	fclose(fp);
 }
 
-void Image::alloc_vector() {
+void Image::alloc_vector(int x_size, int y_size) {
 	//範囲チェック
-	if ((this->x_size < 0 || this->x_size > MAX_IMAGESIZE) || (this->y_size < 0 || this->y_size > MAX_IMAGESIZE)) {
-		//強制終了（ログを出したい
+	if ((x_size < 0 || x_size > MAX_IMAGESIZE) || (y_size < 0 || y_size > MAX_IMAGESIZE)) {
+		//強制終了
 		abort();
 	}
 	else {

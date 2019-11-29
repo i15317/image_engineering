@@ -1,2 +1,32 @@
-﻿  imgProcLibIO.cpp
+﻿  pch.cpp
+  Image.cpp
+  algorithm.cpp
+  imgProcLib.cpp
+  imgProcLibCore.cpp
+G:\Users\notch_man\Documents\image_engineering\imgProcLib\imgProcLibCore.cpp(87,47): warning C4244: '=': '_Ty' から '_Ty' への変換です。データが失われる可能性があります。
+G:\Users\notch_man\Documents\image_engineering\imgProcLib\imgProcLibCore.cpp(87,47): warning C4244:         with
+G:\Users\notch_man\Documents\image_engineering\imgProcLib\imgProcLibCore.cpp(87,47): warning C4244:         [
+G:\Users\notch_man\Documents\image_engineering\imgProcLib\imgProcLibCore.cpp(87,47): warning C4244:             _Ty=double
+G:\Users\notch_man\Documents\image_engineering\imgProcLib\imgProcLibCore.cpp(87,47): warning C4244:         ]
+G:\Users\notch_man\Documents\image_engineering\imgProcLib\imgProcLibCore.cpp(87,47): warning C4244:         and
+G:\Users\notch_man\Documents\image_engineering\imgProcLib\imgProcLibCore.cpp(87,47): warning C4244:         [
+G:\Users\notch_man\Documents\image_engineering\imgProcLib\imgProcLibCore.cpp(87,47): warning C4244:             _Ty=unsigned char
+G:\Users\notch_man\Documents\image_engineering\imgProcLib\imgProcLibCore.cpp(87,47): warning C4244:         ]
+G:\Users\notch_man\Documents\image_engineering\imgProcLib\imgProcLibCore.cpp(98,77): warning C4244: '引数': 'double' から 'int' への変換です。データが失われる可能性があります。
+G:\Users\notch_man\Documents\image_engineering\imgProcLib\imgProcLibCore.cpp(98,44): warning C4244: '引数': 'double' から 'int' への変換です。データが失われる可能性があります。
+G:\Users\notch_man\Documents\image_engineering\imgProcLib\imgProcLibCore.cpp(153,79): warning C4244: '引数': 'double' から 'int' への変換です。データが失われる可能性があります。
+G:\Users\notch_man\Documents\image_engineering\imgProcLib\imgProcLibCore.cpp(153,14): warning C4244: '初期化中': 'double' から 'int' への変換です。データが失われる可能性があります。
+G:\Users\notch_man\Documents\image_engineering\imgProcLib\imgProcLibCore.cpp(156,80): warning C4244: '引数': 'double' から 'int' への変換です。データが失われる可能性があります。
+G:\Users\notch_man\Documents\image_engineering\imgProcLib\imgProcLibCore.cpp(156,15): warning C4244: '初期化中': 'double' から 'int' への変換です。データが失われる可能性があります。
+G:\Users\notch_man\Documents\image_engineering\imgProcLib\imgProcLibCore.cpp(184,65): warning C4244: '引数': 'double' から 'int' への変換です。データが失われる可能性があります。
+G:\Users\notch_man\Documents\image_engineering\imgProcLib\imgProcLibCore.cpp(184,36): warning C4244: '引数': 'double' から 'int' への変換です。データが失われる可能性があります。
+G:\Users\notch_man\Documents\image_engineering\imgProcLib\imgProcLibCore.cpp(210,45): warning C4244: '引数': 'double' から 'int' への変換です。データが失われる可能性があります。
+G:\Users\notch_man\Documents\image_engineering\imgProcLib\imgProcLibCore.cpp(319,7): warning C4101: 'wk': ローカル変数は 1 度も使われていません。
+G:\Users\notch_man\Documents\image_engineering\imgProcLib\imgProcLibCore.cpp(315,12): warning C4101: 'histogram': ローカル変数は 1 度も使われていません。
+G:\Users\notch_man\Documents\image_engineering\imgProcLib\imgProcLibCore.cpp(317,7): warning C4101: 'data': ローカル変数は 1 度も使われていません。
+G:\Users\notch_man\Documents\image_engineering\imgProcLib\imgProcLibCore.cpp(316,12): warning C4101: 'max_frequency': ローカル変数は 1 度も使われていません。
+G:\Users\notch_man\Documents\image_engineering\imgProcLib\imgProcLibCore.cpp(341,7): warning C4101: 'data': ローカル変数は 1 度も使われていません。
+  imgProcLibIO.cpp
+  コードを生成中...
+G:\Users\notch_man\Documents\image_engineering\imgProcLib\imgProcLibCore.cpp(338,12): warning C4101: 'max_frequency': ローカル変数は 1 度も使われていません。
   imgProcLib.vcxproj -> G:\Users\notch_man\Documents\image_engineering\x64\Debug\imgProcLib.lib

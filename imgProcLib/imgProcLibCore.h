@@ -11,6 +11,7 @@ namespace ImgProcLib {
 	Image add_image(Image instance);
 	//画像の反転
 	Image inverseImage(Image instance);
+
 	//画像サイズの変更
 	//Image resizeImage(Image instance);
 	
@@ -30,12 +31,6 @@ namespace ImgProcLib {
 	Image transHistgram(Image& instance);
 	Image normalizeFilter(Image&);
 	Image median_filter(Image& instance);
-
-	//アフィン変換
-	//Image affineTransform(Image & instance);
-	//Image affineTransform(Image & instance, long double angle);
-	//Image affineTransform(Image & instance, long float mag);
-	//Image affineTransform(Image & instance, long double angle, long double mag);
 
 	//微分フィルタ
 	Image affectSobelFilter(Image& instance);

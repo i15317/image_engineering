@@ -15,13 +15,13 @@ namespace ImgProcLib {
 
 	Image add_image(Image mInstance) {
 		//結果を格納するインスタンス
-		Image img(mInstance.x_size, mInstance.y_size);
+		Image img(mInstance.getColsSize(), mInstance.getRowsSize());
 		int x, y, wk, a;//制御変数
 		std::cout << "画像に加算します" << std::endl;
 		std::cout << "加算値 = ";
 		std::cin >> a;
-		for (y = 0; y < img.y_size; y++) {
-			for (x = 0; x < img.x_size; x++) {
+		for (y = 0; y < img.getRowsSize(); y++) {
+			for (x = 0; x < img.getColsSize(); x++) {
 				wk = mInstance[y][x] + a;
 				if (wk > 255)wk = 255;
 				else if (wk < 0)wk = 0;
@@ -34,12 +34,12 @@ namespace ImgProcLib {
 	Image copy_image(Image mInstance)
 		/* image1 のデータをそのまま image2 へ */
 	{
-		Image img(mInstance.x_size, mInstance.y_size);
+		Image img(mInstance.getColsSize(), mInstance.getRowsSize());
 		int x, y;    /* 制御変数 */
 
 		printf("画像をコピーします．\n");
-		for (y = 0; y < img.y_size; y++) {
-			for (x = 0; x < img.x_size; x++) {
+		for (y = 0; y < img.getRowsSize(); y++) {
+			for (x = 0; x < img.getColsSize(); x++) {
 				img[y][x] = mInstance[y][x];
 			}
 		}
@@ -47,13 +47,13 @@ namespace ImgProcLib {
 	}
 
 	Image inverseImage(Image mInstance) {
-		Image img(mInstance.x_size, mInstance.y_size);
+		Image img(mInstance.getColsSize(), mInstance.getRowsSize());
 		/* 原画像 image1 を反転させて image2 に代入する */
 		int x, y;    /* 制御変数 */
 
 		printf("反転画像を作成します．\n");
-		for (y = 0; y < img.y_size; y++) {
-			for (x = 0; x < img.x_size; x++) {
+		for (y = 0; y < img.getRowsSize(); y++) {
+			for (x = 0; x < img.getColsSize(); x++) {
 				img[y][x] = (unsigned char)
 					(MAX_BRIGHTNESS - mInstance[y][x]);
 			}
@@ -65,7 +65,7 @@ namespace ImgProcLib {
 	階調数変換（n段階に量子化）
 	*/
 	Image convertTone(Image& src_image, int n) {
-		Image result_image(src_image.x_size, src_image.y_size);
+		Image result_image(src_image.getColsSize(), src_image.getRowsSize());
 		//実装面倒だから階調数テーブルを事前に作成する
 		std::vector<double> table(256, 0.0);
 		//ステップ関数（０の時は絶対０）
@@ -81,8 +81,8 @@ namespace ImgProcLib {
 
 		}
 		//ここからメイン処理
-		for (int i = 0; i < result_image.y_size; i++) {
-			for (int j = 0; j < result_image.x_size; j++) {
+		for (int i = 0; i < result_image.getRowsSize(); i++) {
+			for (int j = 0; j < result_image.getColsSize(); j++) {
 				//量子化する
 				result_image[i][j] = table[src_image[i][j]];
 			}
@@ -95,14 +95,14 @@ namespace ImgProcLib {
 	}
 
 	Image linearResize(Image& image, double scale) {
-		Image image2(image.x_size * scale + 1, image.y_size * scale + 1);
+		Image image2(image.getColsSize() * scale + 1, image.getRowsSize() * scale + 1);
 
-		for (int y = 0; y < image2.y_size; y++) {
-			for (int x = 0; x < image2.x_size; x++) {
+		for (int y = 0; y < image2.getRowsSize(); y++) {
+			for (int x = 0; x < image2.getColsSize(); x++) {
 				int x0 = (int)(x / scale);
 				int y0 = (int)(y / scale);
 
-				if (x0 < (image.x_size - 1) && y0 < (image.y_size - 1)) {
+				if (x0 < (image.getColsSize() - 1) && y0 < (image.getRowsSize() - 1)) {
 					// 左上の画素との距離
 					double a = x / scale - x0;
 					double b = y / scale - y0;
@@ -140,20 +140,20 @@ namespace ImgProcLib {
 	}
 
 	Image convertResolution(Image& src_image, int magValue) {
-		Image result_image(src_image.x_size, src_image.y_size);
+		Image result_image(src_image.getColsSize(), src_image.getRowsSize());
 		//ブロックサイズの計算
-		double x_block = result_image.x_size * (magValue / 100.0);
-		double y_block = result_image.y_size * (magValue / 100.0);
+		double x_block = result_image.getColsSize() * (magValue / 100.0);
+		double y_block = result_image.getRowsSize() * (magValue / 100.0);
 		//画像をブロックに分割して新しい画像を構築する
 
 		//4重ループになってるので効率悪そう
 		int _y = 0;
-		std::cout << (result_image.x_size / x_block) << std::endl;
-		for (int i = 1; i < (result_image.y_size / y_block) - 1; i++) {
-			int tmp_y = _y + y_block + checkMemoryRange(result_image.y_size, _y + y_block);
+		std::cout << (result_image.getColsSize() / x_block) << std::endl;
+		for (int i = 1; i < (result_image.getRowsSize() / y_block) - 1; i++) {
+			int tmp_y = _y + y_block + checkMemoryRange(result_image.getRowsSize(), _y + y_block);
 			int _x = 0;
-			for (int j = 1; j < result_image.x_size / x_block - 1; j++) {
-				int tmp_x = _x + x_block + checkMemoryRange(result_image.x_size, _x + x_block);
+			for (int j = 1; j < result_image.getColsSize() / x_block - 1; j++) {
+				int tmp_x = _x + x_block + checkMemoryRange(result_image.getColsSize(), _x + x_block);
 				//画素値
 				double pixel = 0.0f;
 				for (int ly = _y; ly < tmp_y; ly++) {
@@ -181,13 +181,13 @@ namespace ImgProcLib {
 	}
 
 	Image neighborMethod(Image& image, double scale) {
-		Image image2(image.x_size * scale, image.y_size * scale);
-		for (int y = 0; y < image2.y_size; y++) {
-			for (int x = 0; x < image2.x_size; x++) {
+		Image image2(image.getColsSize() * scale, image.getRowsSize() * scale);
+		for (int y = 0; y < image2.getRowsSize(); y++) {
+			for (int x = 0; x < image2.getColsSize(); x++) {
 				int xp = (int)std::round(x / scale);
 				int yp = (int)std::round(y / scale);
 
-				if (xp < image.x_size && yp < image.y_size) {
+				if (xp < image.getColsSize() && yp < image.getRowsSize()) {
 					int color = image[xp][yp];
 					image2[x][y] = color;
 				}
@@ -207,9 +207,9 @@ namespace ImgProcLib {
 		parameter[2] = -RESIZE_PARAMATER * 4.0;
 		parameter[3] = RESIZE_PARAMATER * 8.0;
 		parameter[4] = RESIZE_PARAMATER * 5.0;
-		Image image2(instance.x_size * mag + 1, instance.y_size * 2 + 1);
-		for (int y = 0; y < image2.y_size; y++) {
-			for (int x = 0; x < image2.x_size; x++) {
+		Image image2(instance.getColsSize() * mag + 1, instance.getRowsSize() * 2 + 1);
+		for (int y = 0; y < image2.getRowsSize(); y++) {
+			for (int x = 0; x < image2.getColsSize(); x++) {
 				// 元画像における画素の対応する場所
 				double x0 = x / mag;
 				double y0 = y / mag;
@@ -218,7 +218,7 @@ namespace ImgProcLib {
 				int xBase = (int)x0;
 				int yBase = (int)y0;
 				int color = 0;  // 補間する画素
-				if (xBase >= 1 && xBase < instance.x_size - 2 && yBase >= 1 && yBase < instance.y_size - 2) {
+				if (xBase >= 1 && xBase < instance.getColsSize() - 2 && yBase >= 1 && yBase < instance.getRowsSize() - 2) {
 					double color_element = 0;
 					for (int i = -1; i <= 2; i++) {
 						for (int j = -1; j <= 2; j++) {
@@ -274,39 +274,6 @@ namespace ImgProcLib {
 		return image2;
 	}
 
-	//Image affineTransform(Image & instance, long double angle) {
-	//	return affineTransform(instance, angle, 1);
-	//}
-	//
-	//Image affineTransform(Image & instance, long float mag) {
-	//	//このくらい小さい値だと桁落ちするので
-	//	if (0 < mag <= 1E-9)mag *= 10E6;
-	//	else if (mag <= 0)mag = 1;
-	//	return affineTransform(instance, 0, mag);
-	//}
-	//
-	//Image affineTransform(Image & instance, long double angle, long double mag) {
-	//	//アフィン変換の表現行列を作成する
-	//	std::vector<std::vector<long double>>a_matrix = affineMatrix(angle, mag);
-	//	//画像のインスタンス
-	//	Image affineImage(instance.__x_size * mag + 1, instance.__y_size * mag + 1);
-	//	int tmp_x = 0;
-	//	int tmp_y = 0;
-	//	for (int y = 0; y < instance.__y_size; y++) {
-	//		for (int x = 0; x < instance.__x_size; x++) {
-	//			affineImage[
-	//				a_matrix[0][0] * x + a_matrix[0][1] * y
-	//			][
-	//				a_matrix[1][0] * x + a_matrix[1][1] * y
-	//			] = instance[y][x];
-	//		}
-	//	}
-	//
-	//
-	//
-	//
-	//	return affineImage;
-	//}
 
 	Image convertLinearHist(Image& image1) {
 		int a = 255;
@@ -315,10 +282,10 @@ namespace ImgProcLib {
 		for (int i = 0; i < 256; i++) {
 			hist[i] = 0;
 		}
-		Image image2(image1.x_size, image1.y_size);
+		Image image2(image1.getColsSize(), image1.getRowsSize());
 
-		for (int y = 0; y < image1.y_size; y++) {
-			for (int x = 0; x < image1.x_size; x++) {
+		for (int y = 0; y < image1.getRowsSize(); y++) {
+			for (int x = 0; x < image1.getColsSize(); x++) {
 				hist[image1[y][x]] ++;
 				if (a > image1[y][x])
 					a = image1[y][x];
@@ -326,8 +293,8 @@ namespace ImgProcLib {
 					b = image1[y][x];
 			}
 		}
-		for (int y = 0; y < image2.y_size; y++) {
-			for (int x = 0; x < image2.x_size; x++) {
+		for (int y = 0; y < image2.getRowsSize(); y++) {
+			for (int x = 0; x < image2.getColsSize(); x++) {
 				image2[y][x] = 0;
 				if (image1[y][x] < a) {
 					image2[y][x] = 0;
@@ -350,9 +317,9 @@ namespace ImgProcLib {
 		int data; /* 頻度を表すグラフの長さ */
 		int a = 255, b = 0;
 		int wk[256][256];
-		Image image2(image1.x_size, image1.y_size);
-		for (int y = 0; y < image2.y_size; y++) {
-			for (int x = 0; x < image2.x_size; x++) {
+		Image image2(image1.getColsSize(), image1.getRowsSize());
+		for (int y = 0; y < image2.getRowsSize(); y++) {
+			for (int x = 0; x < image2.getColsSize(); x++) {
 				image2[y][x] = 0;
 				if (image1[y][x] <= MAX_BRIGHTNESS / 2) {
 					image2[y][x] = (unsigned char)(2 * MAX_BRIGHTNESS * ((double)image1[y][x] / MAX_BRIGHTNESS) * ((double)image1[y][x] / MAX_BRIGHTNESS));
@@ -370,7 +337,7 @@ namespace ImgProcLib {
 		long int histogram[GRAYLEVEL]; /* ヒストグラム用配列 */
 		long int max_frequency; /* 頻度の最大値 */
 		int a = 255, b = 0;
-		Image image2(image1.x_size, image1.y_size);
+		Image image2(image1.getColsSize(), image1.getRowsSize());
 		int data; /* 頻度を表すグラフの長さ */
 		int mean = 0, g = 0, flag = 1000000, sub = 0;
 		int level[256], value[256];
@@ -382,8 +349,8 @@ namespace ImgProcLib {
 			level[i] = 0;
 		}
 
-		for (int y = 0; y < image1.y_size; y++) {
-			for (int x = 0; image1.x_size; x++) {
+		for (int y = 0; y < image1.getRowsSize(); y++) {
+			for (int x = 0; image1.getColsSize(); x++) {
 				histogram[image1[y][x]] ++;
 				if (image1[y][x] == 0)
 				{
@@ -421,8 +388,8 @@ namespace ImgProcLib {
 			g += mean;
 		}
 
-		for (int y = 0; y < image2.y_size; y++) {
-			for (int x = 0; x < image2.x_size; x++) {
+		for (int y = 0; y < image2.getRowsSize(); y++) {
+			for (int x = 0; x < image2.getColsSize(); x++) {
 				for (int i = 0; i < k; i++) {
 					if (level[i] >= image1[y][x]) { //平坦化
 						image2[y][x] = value[i];
@@ -435,7 +402,7 @@ namespace ImgProcLib {
 	}
 
 	Image normalizeFilter(Image& image) {
-		Image result(image.x_size, image.y_size);
+		Image result(image.getColsSize(), image.getRowsSize());
 		/* 適用するフィルタの定義（3x3の8近傍線形平滑化) */
 		int weight[3][3] = {
 			{ 1,  1,  1 },
@@ -444,12 +411,12 @@ namespace ImgProcLib {
 		double div_const = 10.0; /* <== 最後に割る値 */
 		double new_value;        /* 処理後の階調値 */
 		/* image2[y][x] の初期化 */
-		for (int y = 0; y < image.y_size; y++)
-			for (int x = 0; x < image.x_size; x++)
+		for (int y = 0; y < image.getRowsSize(); y++)
+			for (int x = 0; x < image.getColsSize(); x++)
 				result[y][x] = result[y][x];
 		/* フィルタリングを行う */
-		for (int y = 1; y < image.y_size - 1; y++)
-			for (int x = 1; x < image.x_size - 1; x++) {
+		for (int y = 1; y < image.getRowsSize() - 1; y++)
+			for (int x = 1; x < image.getColsSize() - 1; x++) {
 				new_value = 0.0;
 				for (int i = -1; i < 2; i++)
 					for (int j = -1; j < 2; j++)
@@ -482,16 +449,16 @@ namespace ImgProcLib {
 
 	Image median_filter(Image& image)
 	{
-		Image result(image.x_size, image.y_size);
+		Image result(image.getColsSize(), image.getRowsSize());
 		/* 適用するフィルタの定義（3x3の8近傍線形平滑化) */
 		int work[9];
 		/* image2[y][x] の初期化 */
-		for (int y = 0; y < image.y_size; y++)
-			for (int x = 0; x < image.x_size; x++)
+		for (int y = 0; y < image.getRowsSize(); y++)
+			for (int x = 0; x < image.getColsSize(); x++)
 				result[y][x] = image[y][x];
 		/* フィルタリングを行う */
-		for (int y = 1; y < image.y_size - 1; y++)
-			for (int x = 1; x < image.x_size - 1; x++) {
+		for (int y = 1; y < image.getRowsSize() - 1; y++)
+			for (int x = 1; x < image.getColsSize() - 1; x++) {
 
 				for (int i = -1; i < 2; i++)
 					for (int j = -1; j < 2; j++)
@@ -504,12 +471,12 @@ namespace ImgProcLib {
 
 	Image affectSobelFilter(Image& image) {
 
-		Image result(image.x_size, image.y_size);
+		Image result(image.getColsSize(), image.getRowsSize());
 		//ソーベルフィルタのカーネル
 
 		//一応怖いので初期化
-		for (int y = 0; y < result.y_size; y++)
-			for (int x = 0; x < result.x_size; x++)
+		for (int y = 0; y < result.getRowsSize(); y++)
+			for (int x = 0; x < result.getColsSize(); x++)
 				result[y][x] = 0;
 
 		//水平方向
@@ -526,8 +493,8 @@ namespace ImgProcLib {
 		//{1,2,1}
 		//};
 
-		for (int y = 1; y < image.y_size - 1; y++) {
-			for (int x = 1; x < image.x_size - 1; x++) {
+		for (int y = 1; y < image.getRowsSize() - 1; y++) {
+			for (int x = 1; x < image.getColsSize() - 1; x++) {
 				//indexエラー回避用
 				constexpr int bias = 1;
 				for (int i = -1; i <= 1; i++) {
@@ -542,12 +509,12 @@ namespace ImgProcLib {
 
 	Image affectLaplacianFilter(Image& image) {
 
-		Image result(image.x_size, image.y_size);
+		Image result(image.getColsSize(), image.getRowsSize());
 		//ソーベルフィルタのカーネル
 
 		//一応怖いので初期化
-		for (int y = 0; y < result.y_size; y++)
-			for (int x = 0; x < result.x_size; x++)
+		for (int y = 0; y < result.getRowsSize(); y++)
+			for (int x = 0; x < result.getColsSize(); x++)
 				result[y][x] = 0;
 
 		int laplacian[][3] = {
@@ -556,8 +523,8 @@ namespace ImgProcLib {
 			{0,1,0}
 		};
 
-		for (int y = 1; y < image.y_size - 1; y++) {
-			for (int x = 1; x < image.x_size - 1; x++) {
+		for (int y = 1; y < image.getRowsSize() - 1; y++) {
+			for (int x = 1; x < image.getColsSize() - 1; x++) {
 
 				//indexエラー回避用
 				constexpr int bias = 1;
@@ -574,12 +541,12 @@ namespace ImgProcLib {
 
 	Image affectRadicalizeFilter(Image& image) {
 
-		Image result(image.x_size, image.y_size);
+		Image result(image.getColsSize(), image.getRowsSize());
 		//ソーベルフィルタのカーネル
 
 		//一応怖いので初期化
-		for (int y = 0; y < result.y_size; y++)
-			for (int x = 0; x < result.x_size; x++)
+		for (int y = 0; y < result.getRowsSize(); y++)
+			for (int x = 0; x < result.getColsSize(); x++)
 				result[y][x] = 0;
 
 		int radicalize[][3] = {
@@ -588,8 +555,8 @@ namespace ImgProcLib {
 			{0,-1,0}
 		};
 
-		for (int y = 1; y < image.y_size - 1; y++) {
-			for (int x = 1; x < image.x_size - 1; x++) {
+		for (int y = 1; y < image.getRowsSize() - 1; y++) {
+			for (int x = 1; x < image.getColsSize() - 1; x++) {
 
 				//indexエラー回避用
 				constexpr int bias = 1;
