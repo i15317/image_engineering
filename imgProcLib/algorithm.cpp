@@ -35,6 +35,7 @@ int checkMemoryRange(int original_size, int index) {
 		return index - original_size - 1;
 	}
 }
+
 /*
 bands‚ð‚Ž“™•ª‚µ‚Ävalue‚ª‚Ç‚±‚É‘®‚µ‚Ä‚¢‚é‚©‚ðŒvŽZ‚·‚é
 */

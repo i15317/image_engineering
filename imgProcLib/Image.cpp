@@ -13,7 +13,7 @@ void Image::load_image_data(std::string file_name)
 	int max_gray; /* 最大階調値 */
 	int x, y; /* ループ変数 */
 
-			  /* 入力ファイルのオープン */
+	/* 入力ファイルのオープン */
 	printf("-----------------------------------------------------\n");
 	printf("  モノクロ階調画像入力ルーチン\n");
 	printf("-----------------------------------------------------\n");
@@ -34,22 +34,22 @@ void Image::load_image_data(std::string file_name)
 	/* __x_size1, __y_size1 の代入（#から始まるコメントは読み飛ばす） */
 	m_imageWidth = 0;
 	m_imageHeight = 0;
-	while (m_imageWidth == 0 || m_imageHeight== 0) {
+	while (m_imageWidth == 0 || m_imageHeight == 0) {
 		fgets(buffer, MAX_BUFFERSIZE, fp);
 		if (buffer[0] != '#') {
-			sscanf(buffer, "%d %d", &m_imageWidth, &m_imageHeight);
+			auto x = sscanf(buffer, "%d %d", &m_imageWidth, &m_imageHeight);
 		}
 	}
 
 	//配列領域の確保
-	alloc_vector(m_imageWidth,m_imageHeight);
+	alloc_vector(m_imageWidth, m_imageHeight);
 
 	/* max_gray の代入（#から始まるコメントは読み飛ばす） */
 	max_gray = 0;
 	while (max_gray == 0) {
 		fgets(buffer, MAX_BUFFERSIZE, fp);
 		if (buffer[0] != '#') {
-			sscanf(buffer, "%d", &max_gray);
+			auto x = sscanf(buffer, "%d", &max_gray);
 		}
 	}
 	/* パラメータの画面への表示 */
@@ -67,7 +67,7 @@ void Image::load_image_data(std::string file_name)
 	}
 	/* 画像データを読み込んで画像用配列に代入する */
 	for (y = 0; y < m_imageHeight; y++) {
-		for (x = 0; x <m_imageWidth; x++) {
+		for (x = 0; x < m_imageWidth; x++) {
 			image[y][x] = (unsigned char)fgetc(fp);
 		}
 	}
